@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
@@ -12,7 +13,8 @@ class MainActivity : AppCompatActivity() {
 
         submitButton.setOnClickListener {
             if (code.text.toString() == CODE){
-                //move to next activity
+                val action  = Intent(this , mainhub::class.java)
+                startActivity(action)
             }
             else{
                 //confusion on U.I.
