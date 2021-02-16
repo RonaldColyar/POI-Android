@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".new_person_form"></activity>
+        <activity android:name=".new_entry_form"></activity>
+        <activity android:name=".new_person_form" />
         <activity android:name=".mainhub" />
         <activity android:name=".MainActivity">
             <intent-filter>
