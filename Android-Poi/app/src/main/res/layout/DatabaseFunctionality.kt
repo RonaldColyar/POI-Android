@@ -58,7 +58,7 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
         }
         return data
     }
-    fun gather_persons(id:Int):Cursor{
+    fun gather_persons():Cursor{
         val db = this.readableDatabase
         val cursor = db.query("entries",
             arrayOf("first", "last","location", "height","race") , //columns
