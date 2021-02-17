@@ -14,7 +14,7 @@
         tools:layout_editor_absoluteY="1dp">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/EntryChildLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Label"
@@ -28,7 +28,7 @@
             app:layout_constraintVertical_bias="0.285" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/EntryLevelPhoto"
             android:layout_width="100dp"
             android:layout_height="76dp"
             android:layout_marginEnd="4dp"
@@ -39,7 +39,7 @@
             app:srcCompat="@drawable/level1" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/EntryChildDate"
             android:layout_width="79dp"
             android:layout_height="28dp"
             android:layout_marginStart="16dp"
@@ -52,7 +52,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/EntryChildLevel"
             android:layout_width="129dp"
             android:layout_height="24dp"
             android:layout_marginStart="108dp"
