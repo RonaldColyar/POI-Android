@@ -44,63 +44,68 @@
         android:hint="Location"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/raceEntry"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lastEntry"
         app:layout_constraintVertical_bias="0.482" />
 
     <EditText
         android:id="@+id/raceEntry"
         android:layout_width="292dp"
         android:layout_height="59dp"
+        android:layout_marginBottom="40dp"
         android:background="#03A9F4"
         android:ems="10"
+        android:hint="Race"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
-        android:hint="Race"
+        app:layout_constraintBottom_toTopOf="@+id/heightEntry"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="410dp" />
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName12"
+        android:id="@+id/heightEntry"
         android:layout_width="294dp"
         android:layout_height="64dp"
+        android:layout_marginBottom="40dp"
         android:background="#03A9F4"
         android:ems="10"
+        android:hint="Height"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
-        android:hint="Height"
+        app:layout_constraintBottom_toTopOf="@+id/create_person_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="504dp" />
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/create_person_button"
         android:layout_width="114dp"
         android:layout_height="77dp"
-        android:text="Create"
+        android:layout_marginBottom="56dp"
         android:background="#111"
+        android:text="Create"
         android:textColor="#03A9F4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="602dp" />
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="134dp"
         android:layout_height="85dp"
+        android:layout_marginBottom="12dp"
         android:text=">/>/>"
         android:textColor="#03A9F4"
         android:textSize="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/firstEntry"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="27dp" />
+        app:layout_constraintHorizontal_bias="0.537"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/imageButton2"

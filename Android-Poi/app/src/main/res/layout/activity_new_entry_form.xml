@@ -9,57 +9,68 @@
 
     <EditText
         android:id="@+id/editTextTextPersonName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="254dp"
+        android:layout_height="53dp"
+        android:background="#20536A"
         android:ems="10"
+        android:hint="Label"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:textColor="#ffffff"
+        android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="135dp" />
 
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CheckBox"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.519"
-        tools:layout_editor_absoluteX="114dp" />
-
-    <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CheckBox"
-        tools:layout_editor_absoluteX="133dp"
-        tools:layout_editor_absoluteY="421dp" />
-
-    <CheckBox
-        android:id="@+id/checkBox3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CheckBox"
-        tools:layout_editor_absoluteX="122dp"
-        tools:layout_editor_absoluteY="474dp" />
-
     <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="236dp"
-        android:layout_height="149dp"
+        android:id="@+id/editTextTextPersonName88"
+        android:layout_width="255dp"
+        android:layout_height="53dp"
+        android:textColor="#ffffff"
+        android:background="#20536A"
         android:ems="10"
+        android:hint="Threat Level(1,2,3)"
         android:inputType="textPersonName"
-        android:text="Name"
+
+        android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="206dp" />
+        tools:layout_editor_absoluteY="205dp" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="93dp"
-        android:layout_height="53dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="165dp"
+        android:layout_width="175dp"
+        android:layout_height="87dp"
+        android:text=">#>#>"
+        android:textColor="#03A9F4"
+        android:textSize="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="41dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#111"
+        android:textColor="#03A9F4"
+        android:text="Create"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="589dp" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
+        android:layout_width="358dp"
+        android:layout_height="257dp"
+        android:textColor="#fff"
+        android:hint="Description"
+        android:paddingLeft="10px"
+        android:textSize="23dp"
+        android:background="#103242"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="301dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
