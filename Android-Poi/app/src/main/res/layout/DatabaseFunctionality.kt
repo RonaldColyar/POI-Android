@@ -10,13 +10,13 @@ import android.widget.Toast
 const val DATABASE_NAME = "MYDB2"
 const val PERSONS_TABLE_NAME = "persons"
 const val ENTRY_TABLE_NAME = "entries"
-data class Person(val first:String,val last:String , val location:String,val race:String,val height:String,val image_path :String )
-data class Entry(val label:String , val data:String)
+data class Person(val first:String?,val last:String? , val location:String?,val race:String?,val height:String?,val image_path :String? )
+data class Entry(val label:String , val data:String,val level :String , var date_string :String)
 class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DATABASE_NAME , null,1){
     var db = this.writableDatabase
     override fun onCreate(db: SQLiteDatabase?) {
         val create_person_table= "CREATE TABLE $PERSONS_TABLE_NAME (first VARCHAR(255) , last VARCHAR(255) , location VARCHAR(255), race VARCHAR(255) , id int, imagepath VARCHAR(255))"
-        val create_entry_table ="CREATE TABLE $ENTRY_TABLE_NAME (id int , label VARCHAR(255), data TEXT)"
+        val create_entry_table ="CREATE TABLE $ENTRY_TABLE_NAME (id int , label VARCHAR(255), data TEXT , level VARCHAR(255),date_string VARCHAR(15))"
         db?.execSQL(create_person_table)
         db?.execSQL(create_entry_table)
 
@@ -51,7 +51,9 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
         while (cursor.moveToNext()){ // every entry
             val label = cursor.getString(cursor.getColumnIndexOrThrow("label"))
             val label_data = cursor.getString(cursor.getColumnIndexOrThrow("data"))
-            val entry = Entry(label,label_data)
+            val level = cursor.getString(cursor.getColumnIndexOrThrow("level"))
+            val date = cursor.getString(cursor.getColumnIndexOrThrow("date"))
+            val entry = Entry(label,label_data, level,date)
             data.add(entry)
 
 
