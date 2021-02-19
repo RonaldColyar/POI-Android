@@ -23,16 +23,10 @@ class MainAdapter(var persons : MutableList<Person> , val context:Context) : Rec
         Profileimage.setImageResource(0)
         Profileimage.setBackgroundDrawable(bitmapdraw)
     }
-    private fun update_textviews(holder: ViewHolder,position: Int){
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        //update_photo(holder.itemView.PersonImage , Uri.parse(persons[position].image_path))
         holder.itemView.firstLabel.text = persons[position].first
         holder.itemView.lastLabel.text = persons[position].last
-        holder.itemView.LocationLabel.text = persons[position].location
-        holder.itemView.RaceLabel.text = persons[position].race
-        holder.itemView.heightLabel.text = persons[position].height
-    }
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        update_photo(holder.itemView.PersonImage , Uri.parse(persons[position].image_path))
-        update_textviews(holder,position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,6 +35,6 @@ class MainAdapter(var persons : MutableList<Person> , val context:Context) : Rec
         return ViewHolder(cellforrow)    }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return persons.size
     }
 }

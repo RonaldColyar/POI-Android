@@ -12,17 +12,19 @@ import com.example.myapplication.R
 import kotlinx.android.synthetic.main.entryviewchild.view.*
 
 class EntryAdapter(var entries :MutableList<Entry> , val context:Context) : RecyclerView.Adapter<ViewHolder>() {
-    private fun showDialog(data:Entry) {
+
+    private fun show_details(data:Entry) {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
+        dialog.setCancelable(true)
         dialog.setContentView(R.layout.detailedentryview)
-
         var datelabel = dialog.findViewById(R.id.detailedDate) as TextView
         var entrylabel = dialog.findViewById(R.id.detailedLabel) as TextView
         var levellabel = dialog.findViewById(R.id.detailedLabel) as TextView
         //modify the values to fit entry data before showing
-
+        datelabel.text = data.date_string
+        entrylabel.text = data.label
+        levellabel.text = data.level
         dialog.show()
 
     }
@@ -30,6 +32,9 @@ class EntryAdapter(var entries :MutableList<Entry> , val context:Context) : Recy
         holder.itemView.EntryChildLabel.text = entries[position].label
         holder.itemView.EntryChildDate.text = entries[position].date_string
         holder.itemView.EntryChildLevel.text = entries[position].level
+        holder.itemView.EntryChildLabel.setOnClickListener {
+            show_details(entries[position])
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

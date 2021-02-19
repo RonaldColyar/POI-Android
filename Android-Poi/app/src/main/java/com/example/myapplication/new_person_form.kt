@@ -14,13 +14,16 @@ import layout.Person
 //start for result to gather person object for main activity
 class new_person_form : AppCompatActivity() {
     lateinit var photo_data :Uri
-    val database_manager = DatabaseFunctionality(this)
+    lateinit var database_manager :DatabaseFunctionality
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_person_form)
 
-
-
+         database_manager = DatabaseFunctionality(this)
+        SelectImageButton.setOnClickListener {
+            select_photo()
+        }
         create_person_button.setOnClickListener {
             if (data_is_present()){
                 pass_and_close(
@@ -59,8 +62,8 @@ class new_person_form : AppCompatActivity() {
     private  fun data_is_present():Boolean{
         val entries = arrayOf(firstEntry,lastEntry,locationEntry,raceEntry,heightEntry) // widgets
         //check every user data input
-        for ( i in 0..4){
-            if (entries[i].text.isNullOrEmpty() ){
+        for ( editText in entries){
+            if (editText.text.isNullOrEmpty() ){
                 return false
             }
 
@@ -77,12 +80,9 @@ class new_person_form : AppCompatActivity() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == 33 && resultCode== Activity.RESULT_OK && data != null){
-
-            var photo_data = data.data
+        if (requestCode == 33 && resultCode== Activity.RESULT_OK && data != null) {
+             photo_data = data.data!!
         }
-
-
         super.onActivityResult(requestCode, resultCode, data)
     }
 

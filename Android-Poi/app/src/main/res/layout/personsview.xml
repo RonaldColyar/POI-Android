@@ -3,94 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f0f2f5">
-
-    <ImageView
-        android:id="@+id/PersonImage"
-        android:layout_width="173dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+    android:layout_height="120dp"
+    android:background="#111">
 
     <TextView
         android:id="@+id/firstLabel"
-        android:layout_width="87dp"
-        android:layout_height="41dp"
+        android:layout_width="126dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="4dp"
         android:text="First"
-        android:textSize="30dp"
-        tools:layout_editor_absoluteX="133dp"
-        tools:layout_editor_absoluteY="213dp" />
+        android:textColor="#fff"
+        android:textSize="43dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/lastLabel"
-        android:layout_width="88dp"
-        android:layout_height="43dp"
+        android:layout_width="121dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="4dp"
         android:text="Last"
-        android:textSize="30dp"
-        tools:layout_editor_absoluteX="220dp"
-        tools:layout_editor_absoluteY="213dp" />
+        android:textColor="#fff"
+        android:textSize="43dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/firstLabel"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="417dp"
-        android:layout_height="372dp"
-        android:background="#444"
-        tools:layout_editor_absoluteX="-3dp"
-        tools:layout_editor_absoluteY="257dp">
-
-        <TextView
-            android:id="@+id/heightLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Height"
-            android:textColor="#03A9F4"
-            android:textSize="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.451"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="57dp" />
-
-        <TextView
-            android:id="@+id/RaceLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="#03A9F4"
-            android:textSize="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.423"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="191dp"
-            tools:text="Race" />
-
-        <TextView
-            android:id="@+id/EntriesLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textColor="#03A9F4"
-            android:textSize="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.458"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="256dp"
-            tools:text="Entries" />
-
-        <TextView
-            android:id="@+id/LocationLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Location"
-            android:textColor="#03A9F4"
-            android:textSize="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="129dp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="170dp"
+        android:layout_height="112dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/level3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

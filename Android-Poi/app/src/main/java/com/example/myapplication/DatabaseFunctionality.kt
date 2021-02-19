@@ -21,6 +21,7 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
         db?.execSQL(create_entry_table)
 
     }
+
     private fun save_new_data(values: ContentValues, name:String){
 
         try {
