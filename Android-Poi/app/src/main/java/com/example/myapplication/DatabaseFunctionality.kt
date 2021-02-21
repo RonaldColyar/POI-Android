@@ -7,28 +7,39 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
 
-const val DATABASE_NAME = "MYDB2"
-const val PERSONS_TABLE_NAME = "persons"
-const val ENTRY_TABLE_NAME = "entries"
-data class Person(val first:String?,val last:String? , val location:String?,val race:String?,val height:String?,val image_path :String? )
-data class Entry(val label:String , val data:String,val level :String , var date_string :String)
+const val DATABASE_NAME = "MYDB1174"
+const val PERSONS_TABLE_NAME = "persons2"
+const val ENTRY_TABLE_NAME = "entries2"
+data class Person(val first:String?,val last:String? , val location:String?,val race:String?,val height:String?,val image_path :String? , val id: String? )
+data class Entry(val label:String , val data:String,val level :String , var date_string :String, val id: String )
 class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DATABASE_NAME , null,1){
     var db = this.writableDatabase
     override fun onCreate(db: SQLiteDatabase?) {
-        val create_person_table= "CREATE TABLE $PERSONS_TABLE_NAME (first VARCHAR(255) , last VARCHAR(255) , location VARCHAR(255), race VARCHAR(255) , id int, imagepath VARCHAR(255))"
+        val create_person_table= "CREATE TABLE $PERSONS_TABLE_NAME (" +
+                "" +
+                "first VARCHAR(255) , " +
+                "last VARCHAR(255) ," +
+                "height VARCHAR(255), " +
+                "location VARCHAR(255), " +
+                "race VARCHAR(255) , " +
+                "id VARCHAR(20), " +
+                "imagepath VARCHAR(255))"
         val create_entry_table ="CREATE TABLE $ENTRY_TABLE_NAME (id int , label VARCHAR(255), data TEXT , level VARCHAR(255),date_string VARCHAR(15))"
         db?.execSQL(create_person_table)
         db?.execSQL(create_entry_table)
 
     }
 
-    private fun save_new_data(values: ContentValues, name:String){
+    open fun save_new_data(values: ContentValues, name:String){
 
         try {
-            db?.insert(name,null,values)
+           val test =  db?.insertOrThrow(name,null,values)
+
+            Toast.makeText(context , test.toString(), Toast.LENGTH_LONG).show()
+
         }
         catch (e:Throwable){
-            Toast.makeText(context , "Error 202" , Toast.LENGTH_LONG).show()
+            Toast.makeText(context , e.toString(), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -37,8 +48,8 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
     }
     fun gather_person_entries(id:Int):Cursor{
 
-        val cursor = db.query("entries",
-            arrayOf("label", "data") , //columns
+        val cursor = db.query("entries2",
+            arrayOf("label", "data","id") , //columns
             "id=?", // where
             arrayOf(id.toString()), // where's value
             null, //group by
@@ -54,8 +65,9 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
             val label_data = cursor.getString(cursor.getColumnIndexOrThrow("data"))
             val level = cursor.getString(cursor.getColumnIndexOrThrow("level"))
             val date = cursor.getString(cursor.getColumnIndexOrThrow("date"))
-            val entry = Entry(label,label_data, level,date)
-            data.add(entry)
+            val id = cursor.getString(cursor.getColumnIndexOrThrow("id"))
+            val entry = Entry(label,label_data, level,date,id)
+             data.add(entry)
 
 
         }
@@ -63,13 +75,15 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
     }
     fun gather_persons():Cursor{
 
-        val cursor = db.query("persons",
-            arrayOf("first", "last","location", "height","race","imagepath") , //columns
+        val cursor = db.query("persons2",
+            arrayOf("first", "last","location", "height","race","imagepath","id") , //columns
             null, // where
              null, // where's value
             null, //group by
             null,  // having
             null) // order by
+        Toast.makeText(context , cursor.count.toString(),Toast.LENGTH_LONG).show()
+
         return cursor
     }
     fun formatt_persons(cursor:Cursor) :MutableList<Person>{
@@ -81,7 +95,9 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
             val height = cursor.getString(cursor.getColumnIndexOrThrow("height"))
             val race = cursor.getString(cursor.getColumnIndexOrThrow("race"))
             val path = cursor.getString(cursor.getColumnIndexOrThrow("imagepath"))
-            val person = Person(first,last,location,race,height,path)
+            val id = cursor.getString(cursor.getColumnIndexOrThrow("id"))
+            val person = Person(first,last,location,race,height,path, id)
+            Toast.makeText(context , first, Toast.LENGTH_LONG).show()
             data.add(person)
 
         }
