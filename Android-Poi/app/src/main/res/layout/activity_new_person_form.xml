@@ -10,7 +10,7 @@
     <EditText
         android:id="@+id/firstEntry"
         android:layout_width="293dp"
-        android:layout_height="87dp"
+        android:layout_height="75dp"
         android:layout_marginTop="12dp"
         android:background="#03A9F4"
         android:ems="10"
@@ -24,7 +24,7 @@
     <EditText
         android:id="@+id/lastEntry"
         android:layout_width="293dp"
-        android:layout_height="87dp"
+        android:layout_height="75dp"
         android:layout_marginTop="12dp"
         android:background="#03A9F4"
         android:ems="10"
@@ -38,7 +38,7 @@
     <EditText
         android:id="@+id/locationEntry"
         android:layout_width="293dp"
-        android:layout_height="87dp"
+        android:layout_height="75dp"
         android:layout_marginTop="12dp"
         android:background="#03A9F4"
         android:ems="10"
@@ -52,8 +52,8 @@
     <EditText
         android:id="@+id/raceEntry"
         android:layout_width="293dp"
-        android:layout_height="87dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="8dp"
         android:background="#03A9F4"
         android:ems="10"
         android:hint="Race"
@@ -66,33 +66,45 @@
     <EditText
         android:id="@+id/heightEntry"
         android:layout_width="288dp"
-        android:layout_height="87dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="8dp"
         android:background="#03A9F4"
         android:ems="10"
         android:hint="Height"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/raceEntry" />
 
+    <EditText
+        android:id="@+id/IdEntry"
+        android:layout_width="288dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="12dp"
+        android:background="#03A9F4"
+        android:ems="10"
+        android:hint="ID"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.479"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heightEntry" />
+
     <Button
         android:id="@+id/create_person_button"
-        android:layout_width="291dp"
-        android:layout_height="93dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="295dp"
+        android:layout_height="74dp"
         android:background="#111"
         android:text="Create"
         android:textColor="#03A9F4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heightEntry"
-        app:layout_constraintVertical_bias="0.686" />
+        app:layout_constraintTop_toBottomOf="@+id/IdEntry" />
 
     <TextView
         android:id="@+id/textView4"

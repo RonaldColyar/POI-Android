@@ -8,7 +8,7 @@
     tools:context=".new_entry_form">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/CreateEntryButton"
         android:layout_width="349dp"
         android:layout_height="62dp"
         android:layout_marginTop="16dp"
@@ -19,11 +19,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.612"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine"
+        app:layout_constraintTop_toBottomOf="@+id/DescriptionEntry"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/EntryLabelEdit"
         android:layout_width="347dp"
         android:layout_height="79dp"
         android:layout_marginTop="24dp"
@@ -39,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName88"
+        android:id="@+id/ThreatLevelEntry"
         android:layout_width="347dp"
         android:layout_height="75dp"
         android:layout_marginTop="12dp"
@@ -53,10 +53,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/EntryLabelEdit" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/DescriptionEntry"
         android:layout_width="348dp"
         android:layout_height="257dp"
         android:layout_marginTop="8dp"
@@ -71,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.603"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName88" />
+        app:layout_constraintTop_toBottomOf="@+id/ThreatLevelEntry" />
 
     <TextView
         android:id="@+id/textView6"

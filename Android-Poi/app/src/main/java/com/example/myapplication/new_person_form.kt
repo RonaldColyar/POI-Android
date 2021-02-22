@@ -20,7 +20,6 @@ class new_person_form : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_person_form)
-
          database_manager = DatabaseFunctionality(this)
         SelectImageButton.setOnClickListener {
             select_photo()
@@ -33,7 +32,8 @@ class new_person_form : AppCompatActivity() {
                     locationEntry.text.toString(),
                     raceEntry.text.toString(),
                     heightEntry.text.toString(),
-                    photo_data.toString()
+                    photo_data.toString(),
+                    IdEntry.text.toString()
                     )
             }
             else{
@@ -45,7 +45,7 @@ class new_person_form : AppCompatActivity() {
 
     //places data in database
     private fun store_person(first:String,last:String,location:String,
-                             race:String,height:String,image_path:String){
+                             race:String,height:String,image_path:String,id: String){
             val values = ContentValues().apply {
                 this.put("first" , first)
                 this.put("last", last)
@@ -53,13 +53,14 @@ class new_person_form : AppCompatActivity() {
                 this.put("race", race)
                 this.put("height", height)
                 this.put("imagepath",image_path)
+                this.put("id" , id)
             }
             database_manager.save_new_data(values,"persons2")
     }
     //passes data to mainhub activity for list update
     private fun pass_and_close(first:String,last:String,location:String,
-                               race:String,height:String,image_path:String){
-        store_person(first,last,location,race,height,image_path)
+                               race:String,height:String,image_path:String,id :String){
+        store_person(first,last,location,race,height,image_path,id)
         var intent_data = Intent()
         intent_data.putExtra("first" , first)
         intent_data.putExtra("last",last)

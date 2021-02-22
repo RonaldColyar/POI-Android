@@ -57,7 +57,6 @@ class mainhub : AppCompatActivity() {
                 data.getStringExtra("image_path"),
                 data.getStringExtra("id")
 
-
             )
            adapter.persons.add(person)
 
