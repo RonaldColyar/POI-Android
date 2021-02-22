@@ -1,6 +1,7 @@
 package layout
 
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
@@ -16,8 +17,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import kotlinx.android.synthetic.main.personsview.view.*
 import com.example.myapplication.EntryAdapter
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ViewHolder(itemView:View) : RecyclerView.ViewHolder(itemView)
+
+
+class DateManager{
+    private fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
+
+    private fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
+    }
+    open fun current_date():String{
+        val date = DateManager().getCurrentDateTime()
+        return date.toString("yyyy/MM/dd")
+    }
+
+}
 class MainAdapter(
                     var persons : MutableList<Person>,
                     val context:Context,
@@ -31,6 +51,8 @@ class MainAdapter(
         Profileimage.setImageResource(0)
         Profileimage.setBackgroundDrawable(bitmapdraw)
     }
+    //date funct
+
 
     private fun configure_layout_and_show(
                 first:TextView,
@@ -47,8 +69,26 @@ class MainAdapter(
         viewer.adapter = EntryAdapter(entries,context)
         dialog.show()
     }
-    
-    private fun show_entry_creation_view(){
+
+    private fun entry_creation_check(label:EditText, level:EditText,
+                                     description:EditText, position: Int){
+
+        if (label.text.isNullOrEmpty() || level.text.isNullOrEmpty() || description.text.isNullOrEmpty()){
+            Toast.makeText(context, "Make Sure All Fields Are Populated!!" , Toast.LENGTH_LONG).show()
+        }
+        else{
+            val values = ContentValues().apply{
+                this.put("id" ,persons[position].id)
+                this.put("label" , label.text.toString())
+                this.put("data" , description.text.toString())
+                this.put("level" , level.text.toString())
+                this.put("date_string",DateManager().current_date())
+            }
+            databaseFunctionality.save_new_data(values,"entries2")
+        }
+    }
+
+    private fun show_entry_creation_view(position: Int){
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
@@ -57,8 +97,9 @@ class MainAdapter(
         create_button.setOnClickListener {
             //gather user input elements to store data
             val label = dialog.findViewById(R.id.EntryLabelEdit) as EditText
-            val level  = dialog.findViewById(R.id.ThreatLevelEntry) as EditText
-            val description = dialog.findViewById(R.id.DescriptionEntry) as EditText
+            val level  = dialog.findViewById(R.id.ThreatLevelEdit) as EditText
+            val description = dialog.findViewById(R.id.DescriptionEdit) as EditText
+            entry_creation_check(label,level,description,position)//check and store data
         }
         dialog.show()
     }
@@ -74,7 +115,7 @@ class MainAdapter(
         val list = dialog.findViewById(R.id.EntryViewList) as RecyclerView
         val add_entry = dialog.findViewById(R.id.addentry) as ImageView
         add_entry.setOnClickListener {
-            show_entry_creation_view()
+            show_entry_creation_view(position)
         }
         configure_layout_and_show(first,last,list,position,dialog)
 
@@ -86,6 +127,10 @@ class MainAdapter(
         //update_photo(holder.itemView.PersonImage , Uri.parse(persons[position].image_path))
         holder.itemView.firstLabel.text = persons[position].first
         holder.itemView.lastLabel.text = persons[position].last
+        persons[position].image_path
+        if (persons[position].image_path != "null"){
+            update_photo(holder.itemView.PersonsImage, Uri.parse(persons[position].image_path))
+        }
         holder.itemView.PersonsImage.setOnClickListener {
             //val first:String?,val last:String? , val location:String?,val race:String?,val height:String?,val image_path :String?
             show_person_view(position)

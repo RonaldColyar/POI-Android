@@ -7,11 +7,23 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
 
-const val DATABASE_NAME = "MYDB1174"
+const val DATABASE_NAME = "MYDB117432"
 const val PERSONS_TABLE_NAME = "persons2"
 const val ENTRY_TABLE_NAME = "entries2"
-data class Person(val first:String?,val last:String? , val location:String?,val race:String?,val height:String?,val image_path :String? , val id: String? )
-data class Entry(val label:String , val data:String,val level :String , var date_string :String, val id: String )
+data class Person(val first:String?,
+                  val last:String? ,
+                  val location:String?,
+                  val race:String?,
+                  val height:String?,
+                  val image_path :String? ,
+                  val id: String? )
+
+data class Entry(val label:String ,
+                 val data:String,
+                 val level :String ,
+                 var date_string :String,
+                 val id: String )
+
 class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DATABASE_NAME , null,1){
     var db = this.writableDatabase
     override fun onCreate(db: SQLiteDatabase?) {
@@ -24,7 +36,7 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
                 "race VARCHAR(255) , " +
                 "id VARCHAR(20), " +
                 "imagepath VARCHAR(255))"
-        val create_entry_table ="CREATE TABLE $ENTRY_TABLE_NAME (id int , label VARCHAR(255), data TEXT , level VARCHAR(255),date_string VARCHAR(15))"
+        val create_entry_table ="CREATE TABLE $ENTRY_TABLE_NAME (id VARCHAR(20) , label VARCHAR(255), data TEXT , level VARCHAR(255),date_string VARCHAR(15))"
         db?.execSQL(create_person_table)
         db?.execSQL(create_entry_table)
 
@@ -34,9 +46,7 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
 
         try {
            val test =  db?.insertOrThrow(name,null,values)
-
             Toast.makeText(context , test.toString(), Toast.LENGTH_LONG).show()
-
         }
         catch (e:Throwable){
             Toast.makeText(context , e.toString(), Toast.LENGTH_LONG).show()
