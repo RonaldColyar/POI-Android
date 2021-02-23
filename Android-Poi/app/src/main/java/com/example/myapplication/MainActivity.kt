@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         if (code == CODE){
             if (have_reading_permission()){
                 val action  = Intent(this , mainhub::class.java)
+                action.putExtra("code" , CODE)
                 startActivity(action)
             }
             else{

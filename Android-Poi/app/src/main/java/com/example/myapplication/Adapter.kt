@@ -1,5 +1,6 @@
 package layout
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.ContentValues
 import android.content.Context
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import kotlinx.android.synthetic.main.personsview.view.*
 import com.example.myapplication.EntryAdapter
+import com.example.myapplication.SensitiveDataConfirm
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,7 +43,8 @@ class DateManager{
 class MainAdapter(
                     var persons : MutableList<Person>,
                     val context:Context,
-                    val databaseFunctionality: DatabaseFunctionality,var count :Int) : RecyclerView.Adapter<ViewHolder>() {
+                    val databaseFunctionality: DatabaseFunctionality,
+                    var count :Int) : RecyclerView.Adapter<ViewHolder>() {
 
     private fun update_photo(Profileimage:ImageView , data:Uri){
         //gather file resource data
@@ -51,7 +54,14 @@ class MainAdapter(
         Profileimage.setImageResource(0)
         Profileimage.setBackgroundDrawable(bitmapdraw)
     }
-    //date funct
+    open fun remove_person(id:String){
+        for (person in persons){
+            if (person.id == id ){
+                persons.remove(person)
+                count -=1
+            }
+        }
+    }
 
 
     private fun configure_layout_and_show(
@@ -129,6 +139,13 @@ class MainAdapter(
         holder.itemView.lastLabel.text = persons[position].last
         if (persons[position].image_path != "null"){
             update_photo(holder.itemView.PersonsImage, Uri.parse(persons[position].image_path))
+        }
+        holder.itemView.deletePerson.setOnClickListener {
+            val temp = context as Activity
+            val action = Intent(context,SensitiveDataConfirm::class.java)
+            action.putExtra("id" , persons[position].id)
+            action.putExtra("type" , "person")
+            temp.startActivityForResult(action,3008)
         }
         holder.itemView.PersonsImage.setOnClickListener {
             //val first:String?,val last:String? , val location:String?,val race:String?,val height:String?,val image_path :String?

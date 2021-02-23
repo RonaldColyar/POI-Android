@@ -44,7 +44,7 @@
         app:srcCompat="@drawable/defaultimage" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/deletePerson"
         android:layout_width="68dp"
         android:layout_height="87dp"
         android:layout_marginEnd="16dp"
