@@ -13,6 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.*
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -54,6 +56,7 @@ class MainAdapter(
         Profileimage.setImageResource(0)
         Profileimage.setBackgroundDrawable(bitmapdraw)
     }
+
     open fun remove_person(id:String){
         for (person in persons){
             if (person.id == id ){
@@ -63,13 +66,14 @@ class MainAdapter(
         }
     }
 
-
+    private fun configure_entry_divider(viewer: RecyclerView){
+        var decorator = DividerItemDecoration(context,LinearLayoutManager.VERTICAL)
+        decorator.setDrawable(ContextCompat.getDrawable(context, R.drawable.bluediv)!!)
+        viewer.addItemDecoration(decorator)
+    }
     private fun configure_layout_and_show(
-                first:TextView,
-                last:TextView,
-                viewer:RecyclerView,
-                position: Int,
-                dialog: Dialog){
+                first:TextView, last:TextView,
+                viewer:RecyclerView, position: Int, dialog: Dialog){
         first.text = persons[position].first
         last.text = persons[position].last
          //gather entry data and pass to list(viewer)
@@ -77,14 +81,30 @@ class MainAdapter(
         val entries = databaseFunctionality.formatt_entries(cursor)
         viewer.layoutManager = LinearLayoutManager(context)
         viewer.adapter = EntryAdapter(entries,context)
+        configure_entry_divider(viewer)
         dialog.show()
     }
-
+    private fun level_input_check(level:String) :Boolean{
+        var status = false
+        if (level == "1"){
+            status = true
+        }
+        else if (level == "2"){
+            status = true
+        }
+        else if (level == "3"){
+            status = true
+        }
+        return status
+    }
     private fun entry_creation_check(label:EditText, level:EditText,
                                      description:EditText, position: Int){
 
         if (label.text.isNullOrEmpty() || level.text.isNullOrEmpty() || description.text.isNullOrEmpty()){
             Toast.makeText(context, "Make Sure All Fields Are Populated!!" , Toast.LENGTH_LONG).show()
+        }
+        else if (level_input_check(level.text.toString()) == false){
+            Toast.makeText(context , "Make Sure the threat level is numbers 1-3" , Toast.LENGTH_LONG).show()
         }
         else{
             val values = ContentValues().apply{

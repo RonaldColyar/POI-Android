@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
 
-const val DATABASE_NAME = "MYDB117432"
+const val DATABASE_NAME = "MYDB16543"
 const val PERSONS_TABLE_NAME = "persons2"
 const val ENTRY_TABLE_NAME = "entries2"
 data class Person(val first:String?,
@@ -58,7 +58,7 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
     fun gather_person_entries(id:String):Cursor{
 
         val cursor = db.query("entries2",
-            arrayOf("label", "data","id") , //columns
+            arrayOf("label", "data","id","level","date_string") , //columns
             "id=?", // where
             arrayOf(id), // where's value
             null, //group by
@@ -73,7 +73,7 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
             val label = cursor.getString(cursor.getColumnIndexOrThrow("label"))
             val label_data = cursor.getString(cursor.getColumnIndexOrThrow("data"))
             val level = cursor.getString(cursor.getColumnIndexOrThrow("level"))
-            val date = cursor.getString(cursor.getColumnIndexOrThrow("date"))
+            val date = cursor.getString(cursor.getColumnIndexOrThrow("date_string"))
             val id = cursor.getString(cursor.getColumnIndexOrThrow("id"))
             val entry = Entry(label,label_data, level,date,id)
              data.add(entry)

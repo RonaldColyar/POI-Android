@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="409dp"
+    android:layout_height="118dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="409dp"
@@ -22,10 +22,10 @@
             android:textSize="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.141"
+            app:layout_constraintHorizontal_bias="0.166"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.285" />
+            app:layout_constraintVertical_bias="0.294" />
 
         <ImageView
             android:id="@+id/EntryLevelPhoto"
@@ -40,28 +40,18 @@
 
         <TextView
             android:id="@+id/EntryChildDate"
-            android:layout_width="79dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="139dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginBottom="4dp"
             android:text="Date"
             android:textColor="#075373"
             android:textSize="21dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EntryChildLabel"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/EntryChildLevel"
-            android:layout_width="129dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="108dp"
-            android:layout_marginLeft="108dp"
-            android:layout_marginBottom="20dp"
-            android:text="Threat Level"
-            android:textColor="#075373"
-            android:textSize="21dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
