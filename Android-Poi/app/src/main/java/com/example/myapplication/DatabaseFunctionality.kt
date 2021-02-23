@@ -46,7 +46,6 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
 
         try {
            val test =  db?.insertOrThrow(name,null,values)
-            Toast.makeText(context , test.toString(), Toast.LENGTH_LONG).show()
         }
         catch (e:Throwable){
             Toast.makeText(context , e.toString(), Toast.LENGTH_LONG).show()
@@ -56,12 +55,12 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
     open fun delete_everything(context: Context,table_name:String){
         db.delete(table_name, null,null)
     }
-    fun gather_person_entries(id:Int):Cursor{
+    fun gather_person_entries(id:String):Cursor{
 
         val cursor = db.query("entries2",
             arrayOf("label", "data","id") , //columns
             "id=?", // where
-            arrayOf(id.toString()), // where's value
+            arrayOf(id), // where's value
             null, //group by
             null,  // having
             null) // order by
@@ -92,7 +91,6 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
             null, //group by
             null,  // having
             null) // order by
-        Toast.makeText(context , cursor.count.toString(),Toast.LENGTH_LONG).show()
 
         return cursor
     }
@@ -107,7 +105,6 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
             val path = cursor.getString(cursor.getColumnIndexOrThrow("imagepath"))
             val id = cursor.getString(cursor.getColumnIndexOrThrow("id"))
             val person = Person(first,last,location,race,height,path, id)
-            Toast.makeText(context , first, Toast.LENGTH_LONG).show()
             data.add(person)
 
         }

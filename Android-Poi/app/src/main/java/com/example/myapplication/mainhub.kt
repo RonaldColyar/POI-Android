@@ -58,7 +58,9 @@ class mainhub : AppCompatActivity() {
                 data.getStringExtra("id")
 
             )
-           adapter.persons.add(person)
+            adapter.persons.add(person)
+            adapter.count +=1
+            ProfileView.adapter = adapter
 
         }
         super.onActivityResult(requestCode, resultCode, data)

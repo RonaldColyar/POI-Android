@@ -63,7 +63,7 @@ class MainAdapter(
         first.text = persons[position].first
         last.text = persons[position].last
          //gather entry data and pass to list(viewer)
-        val cursor = databaseFunctionality.gather_person_entries(persons[position].id!!.toInt())
+        val cursor = databaseFunctionality.gather_person_entries(persons[position].id!!)
         val entries = databaseFunctionality.formatt_entries(cursor)
         viewer.layoutManager = LinearLayoutManager(context)
         viewer.adapter = EntryAdapter(entries,context)
@@ -127,7 +127,6 @@ class MainAdapter(
         //update_photo(holder.itemView.PersonImage , Uri.parse(persons[position].image_path))
         holder.itemView.firstLabel.text = persons[position].first
         holder.itemView.lastLabel.text = persons[position].last
-        persons[position].image_path
         if (persons[position].image_path != "null"){
             update_photo(holder.itemView.PersonsImage, Uri.parse(persons[position].image_path))
         }

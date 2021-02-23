@@ -68,6 +68,7 @@ class new_person_form : AppCompatActivity() {
         intent_data.putExtra("race", race)
         intent_data.putExtra("height", height)
         intent_data.putExtra("image_path",image_path)
+        intent_data.putExtra("id", id)
         Toast.makeText(this, "User Created!!", Toast.LENGTH_LONG)
         setResult(5949,intent_data)
         this.finish() // close activity

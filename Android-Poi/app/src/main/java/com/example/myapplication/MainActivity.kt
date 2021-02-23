@@ -63,6 +63,12 @@ class MainActivity : AppCompatActivity() {
             val action  = Intent(this , mainhub::class.java)
             startActivity(action)
         }
+        else{
+            Toast.makeText(
+                this,
+                "This application will not function correctly without this permission!",
+                Toast.LENGTH_LONG).show()
+        }
 
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
