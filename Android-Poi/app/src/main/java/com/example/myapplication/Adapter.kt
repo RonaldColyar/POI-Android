@@ -5,7 +5,9 @@ import android.app.Dialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.drawable.BitmapDrawable
+import android.media.Image
 import android.net.Uri
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -49,15 +51,21 @@ class MainAdapter(
                     var count :Int) : RecyclerView.Adapter<ViewHolder>() {
 
     private fun update_photo(Profileimage:ImageView , data:Uri){
-        //gather file resource data
-        val bitmapforphoto = MediaStore.Images.Media.getBitmap(context.contentResolver ,data)
-        val bitmapdraw = BitmapDrawable(bitmapforphoto)
-        //update U.I with image
-        Profileimage.setImageResource(0)
-        Profileimage.setBackgroundDrawable(bitmapdraw)
+        try {
+            //gather file resource data
+            val bitmapforphoto = MediaStore.Images.Media.getBitmap(context.contentResolver, data)
+            val bitmapdraw = BitmapDrawable(bitmapforphoto)
+            //update U.I with image
+            Profileimage.setImageResource(0)
+            Profileimage.setBackgroundDrawable(bitmapdraw)
+        }
+        catch (e:Throwable){
+
+        }
     }
 
     open fun remove_person(id:String){
+        //remove every person that matched the id
         for (person in persons){
             if (person.id == id ){
                 persons.remove(person)
@@ -72,20 +80,20 @@ class MainAdapter(
         viewer.addItemDecoration(decorator)
     }
     private fun configure_layout_and_show(
-                first:TextView, last:TextView,
-                viewer:RecyclerView, position: Int, dialog: Dialog){
+                first:TextView, last:TextView, viewer:RecyclerView,
+                position: Int, dialog: Dialog ){
         first.text = persons[position].first
         last.text = persons[position].last
-         //gather entry data and pass to list(viewer)
-        val cursor = databaseFunctionality.gather_person_entries(persons[position].id!!)
-        val entries = databaseFunctionality.formatt_entries(cursor)
+         //gather person(s) entry data and pass to list(viewer)
+        val cursor :Cursor = databaseFunctionality.gather_person_entries(persons[position].id!!)
+        val entries : MutableList<Entry> = databaseFunctionality.formatt_entries(cursor)
         viewer.layoutManager = LinearLayoutManager(context)
         viewer.adapter = EntryAdapter(entries,context)
         configure_entry_divider(viewer)
         dialog.show()
     }
     private fun level_input_check(level:String) :Boolean{
-        var status = false
+        var status :Boolean = false
         if (level == "1"){
             status = true
         }
@@ -97,9 +105,18 @@ class MainAdapter(
         }
         return status
     }
-    private fun entry_creation_check(label:EditText, level:EditText,
-                                     description:EditText, position: Int){
-
+    private fun configured_values(label:EditText, level:EditText,
+                                  description:EditText, position: Int):ContentValues{
+        val values :ContentValues = ContentValues().apply{
+            this.put("id" ,persons[position].id)
+            this.put("label" , label.text.toString())
+            this.put("data" , description.text.toString())
+            this.put("level" , level.text.toString())
+            this.put("date_string",DateManager().current_date())
+        }
+        return values
+    }
+    private fun entry_creation_check(label:EditText, level:EditText, description:EditText, position: Int){
         if (label.text.isNullOrEmpty() || level.text.isNullOrEmpty() || description.text.isNullOrEmpty()){
             Toast.makeText(context, "Make Sure All Fields Are Populated!!" , Toast.LENGTH_LONG).show()
         }
@@ -107,59 +124,46 @@ class MainAdapter(
             Toast.makeText(context , "Make Sure the threat level is numbers 1-3" , Toast.LENGTH_LONG).show()
         }
         else{
-            val values = ContentValues().apply{
-                this.put("id" ,persons[position].id)
-                this.put("label" , label.text.toString())
-                this.put("data" , description.text.toString())
-                this.put("level" , level.text.toString())
-                this.put("date_string",DateManager().current_date())
-            }
-            databaseFunctionality.save_new_data(values,"entries2")
+            val data :ContentValues = configured_values(label,level,description,position)
+            databaseFunctionality.save_new_data(data,"entries2")
         }
     }
 
     private fun show_entry_creation_view(position: Int){
-        val dialog = Dialog(context)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(true)
-        dialog.setContentView(R.layout.activity_new_entry_form)
-        val create_button = dialog.findViewById(R.id.CreateEntryButton) as Button
+        val dialog :Dialog = configured_dialog(R.layout.activity_new_entry_form)
+        val create_button : Button = dialog.findViewById(R.id.CreateEntryButton) as Button
         create_button.setOnClickListener {
             //gather user input elements to store data
-            val label = dialog.findViewById(R.id.EntryLabelEdit) as EditText
-            val level  = dialog.findViewById(R.id.ThreatLevelEdit) as EditText
-            val description = dialog.findViewById(R.id.DescriptionEdit) as EditText
+            val label :EditText = dialog.findViewById(R.id.EntryLabelEdit) as EditText
+            val level  :EditText = dialog.findViewById(R.id.ThreatLevelEdit) as EditText
+            val description :EditText = dialog.findViewById(R.id.DescriptionEdit) as EditText
             entry_creation_check(label,level,description,position)//check and store data
         }
         dialog.show()
     }
-
-    private fun show_person_view(position: Int){
-        val dialog = Dialog(context)
+    private fun configured_dialog(id:Int):Dialog{
+        val dialog  = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
-        dialog.setContentView(R.layout.personentryview)
+        dialog.setContentView(id)
+        return dialog
+
+    }
+    private fun show_person_view(position: Int){
+        val dialog = configured_dialog(R.layout.personentryview)
         //gather elements for configuration(changing U.I)
-        val first = dialog.findViewById(R.id.EntryViewFirst) as TextView
-        val last  = dialog.findViewById(R.id.EntryViewLast) as TextView
+        val first  = dialog.findViewById(R.id.EntryViewFirst) as TextView
+        val last = dialog.findViewById(R.id.EntryViewLast) as TextView
         val list = dialog.findViewById(R.id.EntryViewList) as RecyclerView
+        val image = dialog.findViewById(R.id.personEntryViewImage) as ImageView
         val add_entry = dialog.findViewById(R.id.addentry) as ImageView
         add_entry.setOnClickListener {
             show_entry_creation_view(position)
         }
+        update_photo(image , Uri.parse(persons[position].image_path))
         configure_layout_and_show(first,last,list,position,dialog)
-
-
-
-
     }
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //update_photo(holder.itemView.PersonImage , Uri.parse(persons[position].image_path))
-        holder.itemView.firstLabel.text = persons[position].first
-        holder.itemView.lastLabel.text = persons[position].last
-        if (persons[position].image_path != "null"){
-            update_photo(holder.itemView.PersonsImage, Uri.parse(persons[position].image_path))
-        }
+    private fun set_click_events(position: Int, holder: ViewHolder){
         holder.itemView.deletePerson.setOnClickListener {
             val temp = context as Activity
             val action = Intent(context,SensitiveDataConfirm::class.java)
@@ -168,15 +172,23 @@ class MainAdapter(
             temp.startActivityForResult(action,3008)
         }
         holder.itemView.PersonsImage.setOnClickListener {
-            //val first:String?,val last:String? , val location:String?,val race:String?,val height:String?,val image_path :String?
             show_person_view(position)
 
         }
     }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        //update_photo(holder.itemView.PersonImage , Uri.parse(persons[position].image_path))
+        holder.itemView.firstLabel.text = persons[position].first
+        holder.itemView.lastLabel.text = persons[position].last
+        if (persons[position].image_path != "null"){
+            update_photo(holder.itemView.PersonsImage, Uri.parse(persons[position].image_path))
+        }
+        set_click_events(position,holder)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutinflation = LayoutInflater.from(parent?.context)
-        val cellforrow = layoutinflation.inflate(R.layout.personsview,parent, false)
+        val cellforrow :View = layoutinflation.inflate(R.layout.personsview,parent, false)
         return ViewHolder(cellforrow)    }
 
     override fun getItemCount(): Int {
