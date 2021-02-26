@@ -126,8 +126,8 @@ class MainAdapter(
             Toast.makeText(context , "Make Sure the threat level is numbers 1-3" , Toast.LENGTH_LONG).show()
         }
         else{
-            val data :ContentValues = configured_values(label,level,description,position)
-            databaseFunctionality.save_new_data(data,"entries2")
+            //save data and close layout
+            databaseFunctionality.save_new_data( configured_values(label,level,description,position),"entries2")
             Toast.makeText(context, "Success!" , Toast.LENGTH_LONG).show()
             parent.hide()
             child.hide()
@@ -181,6 +181,7 @@ class MainAdapter(
         val image = dialog.findViewById(R.id.personEntryViewImage) as ImageView
         val add_entry = dialog.findViewById(R.id.addentry) as ImageView
         val open_detail_view = dialog.findViewById(R.id.openpersondetails) as ImageView
+        //update labels/images to match the person data
         set_person_view_click_events(add_entry,open_detail_view,position,dialog)
         update_photo(image , Uri.parse(persons[position].image_path))
         configure_layout_and_show(first,last,list,position,dialog)

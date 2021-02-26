@@ -134,19 +134,16 @@ class mainhub : AppCompatActivity() {
         ProfileView.addItemDecoration(decorator)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mainhub)
         optionsButton.setOnClickListener {
             show_popup(optionsButton)
         }
-
         databaseFunctionality = DatabaseFunctionality(this)
         val persons = databaseFunctionality.formatt_persons(databaseFunctionality.gather_persons())
         if (persons.isNotEmpty()){
             NullTextView.alpha = 0.0f
         }
-
         adapter = MainAdapter(persons , this,databaseFunctionality,persons.size)
         setup_recyclerview()
 
