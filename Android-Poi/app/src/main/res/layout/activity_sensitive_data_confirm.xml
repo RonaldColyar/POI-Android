@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#122832"
+    android:layout_height="440dp">
+    tools:context=".SensitiveDataConfirm">
+
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="335dp"
+        android:layout_height="143dp"
+        android:layout_marginTop="72dp"
+        android:text="Are You Sure You Would Like To Complete This Action?"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/SensitiveCodeInput"
+        android:layout_width="336dp"
+        android:layout_height="83dp"
+        android:layout_marginTop="20dp"
+        android:background="#0B1215"
+        android:ems="10"
+        android:hint="Code"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/ConfirmSensitiveDeletion"
+        android:layout_width="342dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="4dp"
+        android:text="Complete(Dangerous)"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SensitiveCodeInput"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/CloseSensitiveActivity"
+        android:layout_width="39dp"
+        android:layout_height="47dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_close_24" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

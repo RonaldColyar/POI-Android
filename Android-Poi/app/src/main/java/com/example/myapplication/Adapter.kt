@@ -116,7 +116,9 @@ class MainAdapter(
         }
         return values
     }
-    private fun entry_creation_check(label:EditText, level:EditText, description:EditText, position: Int){
+    private fun entry_creation_check(label:EditText, level:EditText,
+                                     description:EditText, position: Int,
+                                     parent: Dialog,child:Dialog){
         if (label.text.isNullOrEmpty() || level.text.isNullOrEmpty() || description.text.isNullOrEmpty()){
             Toast.makeText(context, "Make Sure All Fields Are Populated!!" , Toast.LENGTH_LONG).show()
         }
@@ -126,10 +128,13 @@ class MainAdapter(
         else{
             val data :ContentValues = configured_values(label,level,description,position)
             databaseFunctionality.save_new_data(data,"entries2")
+            Toast.makeText(context, "Success!" , Toast.LENGTH_LONG).show()
+            parent.hide()
+            child.hide()
         }
     }
 
-    private fun show_entry_creation_view(position: Int){
+    private fun show_entry_creation_view(position: Int,parent: Dialog){
         val dialog :Dialog = configured_dialog(R.layout.activity_new_entry_form)
         val create_button : Button = dialog.findViewById(R.id.CreateEntryButton) as Button
         create_button.setOnClickListener {
@@ -137,9 +142,19 @@ class MainAdapter(
             val label :EditText = dialog.findViewById(R.id.EntryLabelEdit) as EditText
             val level  :EditText = dialog.findViewById(R.id.ThreatLevelEdit) as EditText
             val description :EditText = dialog.findViewById(R.id.DescriptionEdit) as EditText
-            entry_creation_check(label,level,description,position)//check and store data
+            entry_creation_check(label,level,description,position,parent,dialog)//check and store data
         }
         dialog.show()
+    }
+    private fun set_person_view_click_events( add_entry:ImageView ,details:ImageView,
+                                              position: Int,parent:Dialog){
+        add_entry.setOnClickListener {
+            show_entry_creation_view(position ,parent)
+
+        }
+        details.setOnClickListener {
+            show_detailed_person_view(position)
+        }
     }
     private fun configured_dialog(id:Int):Dialog{
         val dialog  = Dialog(context)
@@ -147,19 +162,26 @@ class MainAdapter(
         dialog.setCancelable(true)
         dialog.setContentView(id)
         return dialog
-
+    }
+    private fun show_detailed_person_view (position: Int ){
+        val dialog = configured_dialog(R.layout.person_detail_view)
+        val location = dialog.findViewById(R.id.personDetailsLocation) as TextView
+        val race = dialog.findViewById(R.id.personDetailsRace) as TextView
+        val height = dialog.findViewById(R.id.personDetailsHeight) as TextView
+        location.text = persons[position].location
+        race.text = persons[position].race
+        height.text = persons[position].height
+        dialog.show()
     }
     private fun show_person_view(position: Int){
         val dialog = configured_dialog(R.layout.personentryview)
-        //gather elements for configuration(changing U.I)
         val first  = dialog.findViewById(R.id.EntryViewFirst) as TextView
         val last = dialog.findViewById(R.id.EntryViewLast) as TextView
         val list = dialog.findViewById(R.id.EntryViewList) as RecyclerView
         val image = dialog.findViewById(R.id.personEntryViewImage) as ImageView
         val add_entry = dialog.findViewById(R.id.addentry) as ImageView
-        add_entry.setOnClickListener {
-            show_entry_creation_view(position)
-        }
+        val open_detail_view = dialog.findViewById(R.id.openpersondetails) as ImageView
+        set_person_view_click_events(add_entry,open_detail_view,position,dialog)
         update_photo(image , Uri.parse(persons[position].image_path))
         configure_layout_and_show(first,last,list,position,dialog)
     }

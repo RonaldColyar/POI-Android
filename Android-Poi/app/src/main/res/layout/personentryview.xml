@@ -4,44 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/EntryView"
     android:layout_width="match_parent"
-    android:layout_height="580dp">
+    android:layout_height="670dp">
 
     <TextView
         android:id="@+id/EntryViewFirst"
-        android:layout_width="110dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="137dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginLeft="92dp"
         android:text="First"
-        android:textSize="30dp"
+        android:textSize="40dp"
         app:layout_constraintBottom_toTopOf="@+id/EntryViewList"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/personEntryViewImage"
+        app:layout_constraintVertical_bias="0.296" />
 
     <TextView
         android:id="@+id/EntryViewLast"
-        android:layout_width="88dp"
-        android:layout_height="43dp"
+        android:layout_width="141dp"
+        android:layout_height="57dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="87dp"
         android:layout_marginRight="87dp"
-        android:layout_marginBottom="12dp"
         android:text="Last"
-        android:textSize="30dp"
+        android:textSize="40dp"
         app:layout_constraintBottom_toTopOf="@+id/EntryViewList"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.372"
         app:layout_constraintStart_toEndOf="@+id/EntryViewFirst"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/personEntryViewImage"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/EntryViewList"
-        android:layout_width="412dp"
-        android:layout_height="345dp"
+        android:layout_width="413dp"
+        android:layout_height="425dp"
         android:background="#000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,8 +49,8 @@
 
     <ImageView
         android:id="@+id/personEntryViewImage"
-        android:layout_width="282dp"
-        android:layout_height="173dp"
+        android:layout_width="268dp"
+        android:layout_height="166dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -71,5 +70,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_baseline_add_24" />
+
+    <ImageView
+        android:id="@+id/openpersondetails"
+        android:layout_width="43dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/personEntryViewImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_visibility_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
