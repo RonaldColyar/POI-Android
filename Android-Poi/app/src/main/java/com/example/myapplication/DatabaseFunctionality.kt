@@ -52,7 +52,7 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
         }
     }
 
-    open fun delete_everything(context: Context,table_name:String){
+    open fun delete_everything(table_name:String){
         db.delete(table_name, null,null)
     }
     fun gather_person_entries(id:String):Cursor{
@@ -66,6 +66,10 @@ class DatabaseFunctionality(val context:Context) : SQLiteOpenHelper(context, DAT
             null) // order by
         return cursor
     }
+
+
+
+
     fun formatt_entries(cursor:Cursor):MutableList<Entry>{
         var data = mutableListOf<Entry>()
 

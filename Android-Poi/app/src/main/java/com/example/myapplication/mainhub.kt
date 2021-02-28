@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -71,8 +72,8 @@ class mainhub : AppCompatActivity() {
 
     private fun check_breached_deletion_code(data: Intent?){
         if (data!!.getStringExtra("code") == intent.getStringExtra("code")) {
-            databaseFunctionality.delete_everything(this,"persons2")
-            databaseFunctionality.delete_everything(this,"entries2")
+            databaseFunctionality.delete_everything("persons2")
+            databaseFunctionality.delete_everything("entries2")
             //update persons list held by adapter(in memory)
             adapter.persons = mutableListOf<Person>()
             adapter.count = 0
@@ -86,14 +87,36 @@ class mainhub : AppCompatActivity() {
         }
     }
 
-    private fun check_result_tier_two(requestCode: Int , data: Intent?){
+    private fun check_for_deletions(requestCode: Int , data: Intent?){
         if(requestCode == 3008 && data != null){//deleting a person
                 check_person_deletion_code(data)
               }
          else if (requestCode == 3009 && data != null){//deleting everything(breach protocol)
             check_breached_deletion_code(data)
         }
+    }
 
+    private  fun check_update_results(code:Int){
+        if (code == 0){
+            Toast.makeText(this, "Successfully updated!!", Toast.LENGTH_LONG).show()
+        }
+        else{
+            Toast.makeText(this, "Issue Updating!" , Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private  fun check_for_person_modification(requestCode: Int , data: Intent?){
+        if (requestCode == 4039 && data != null){
+            val values = ContentValues().apply {
+                this.put(data.getStringExtra("key" ) , data.getStringExtra("value"))
+                }
+            val result = databaseFunctionality.db.update(
+                "persons2" ,
+                values,
+                data.getStringExtra("whereClause") ,
+                arrayOf(data.getStringExtra("wherearg")))
+            check_update_results(result)
+        }
     }
     private fun modify_default_label_if_needed(count:Int,type:String){
             if (count == 0 && type == "appending"){
@@ -112,16 +135,15 @@ class mainhub : AppCompatActivity() {
                 data.getStringExtra("height"), data.getStringExtra("image_path"),
                 data.getStringExtra("id")
             )
-
             modify_default_label_if_needed(adapter.count,"appending")
             adapter.persons.add(person)
             adapter.count +=1
             //re-bind the recyclerview so the person is  in the list(visually)
             ProfileView.adapter = adapter
-
         }
         else{
-            check_result_tier_two(requestCode,data)
+            check_for_deletions(requestCode,data)
+            check_for_person_modification(resultCode,data)
         }
 
         super.onActivityResult(requestCode, resultCode, data)

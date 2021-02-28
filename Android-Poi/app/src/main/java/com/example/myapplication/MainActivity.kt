@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         //remove all data for safety
         if (wrong_counter>10){
             val databaseFunctionality = DatabaseFunctionality(this)
-            databaseFunctionality.delete_everything(this,"persons2")
-            databaseFunctionality.delete_everything(this,"entries2")
+            databaseFunctionality.delete_everything("persons2")
+            databaseFunctionality.delete_everything("entries2")
         }
         else{
             wrong_counter+=1
