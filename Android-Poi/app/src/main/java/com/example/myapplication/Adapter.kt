@@ -10,10 +10,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.media.Image
 import android.net.Uri
 import android.provider.MediaStore
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -145,29 +142,54 @@ class MainAdapter(
         }
         dialog.show()
     }
+
+    private  fun edit_attribute_routing(it:MenuItem , position: Int){
+        val first = persons[position].first
+        val last = persons[position].last
+        if(it.itemId == R.id.EditFirstOfPerson){
+            display_edit_person_activty(first,last, "first")
+        }
+        else if (it.itemId == R.id.EditLastOfPerson){
+            display_edit_person_activty(first,last,"last")
+        }
+        else if (it.itemId == R.id.EditHeightOfPerson ){
+            display_edit_person_activty(first,last,"height")
+        }
+        else if (it.itemId == R.id.EditLocationOfPerson){
+            display_edit_person_activty(first,last,"location")
+        }
+        else{
+            display_edit_person_activty(first,last,"race")
+        }
+    }
+    private  fun item_click_routing(it: MenuItem,position: Int,parent: Dialog){
+        if (it.itemId == R.id.AddEntryOfPerson){
+            show_entry_creation_view(position,parent)
+        }
+        else if (it.itemId == R.id.ViewDetailsOfPerson){
+            show_detailed_person_view(position)
+        }
+        else {
+            edit_attribute_routing(it,position)
+        }
+    }
     private  fun show_actions_popup(view:View , parent: Dialog,position: Int){
         val popup = PopupMenu(context , view)
-        popup.inflate(R.menu.dropdown)
+        popup.inflate(R.menu.more_person_options)
         popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
-            if (it.itemId == R.id.AddEntryOfPerson){
-                show_entry_creation_view(position,parent)
-            }
-            else if (it.itemId == R.id.ViewDetailsOfPerson){
-                show_detailed_person_view(position)
-            }
+            item_click_routing(it,position,parent)
             true
         })
         popup.show()
     }
 
-    private fun set_person_view_click_events( more_actions:ImageView,
-                                              position: Int,parent:Dialog){
+    private fun set_person_view_click_events( more_actions:ImageView, position: Int,parent:Dialog){
         more_actions.setOnClickListener {
             show_actions_popup(more_actions,parent,position)
         }
 
     }
-    private fun display_edit_person_activty(first:String , last:String,field:String){
+    private fun display_edit_person_activty(first:String? , last:String?,field:String){
         val action = Intent(context , editPersonAttribute::class.java)
         //adding data for label modification
         action.putExtra("first" , first)

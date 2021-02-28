@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".editPersonAttribute"></activity>
+        <activity android:name=".editPersonAttribute"
+            android:label="Edit Attribute!!"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert"
+
+            ></activity>
         <activity
             android:name=".SensitiveDataConfirm"
             android:label="Delete Information!!"

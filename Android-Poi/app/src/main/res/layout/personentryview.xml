@@ -10,14 +10,14 @@
         android:id="@+id/EntryViewFirst"
         android:layout_width="137dp"
         android:layout_height="48dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginLeft="84dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginLeft="68dp"
         android:text="First"
         android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/EntryViewList"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/personEntryViewImage"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.079" />
 
     <TextView
         android:id="@+id/EntryViewLast"
@@ -30,12 +30,10 @@
         android:layout_marginRight="87dp"
         android:text="Last"
         android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.307"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/EntryViewFirst"
-        app:layout_constraintTop_toBottomOf="@+id/personEntryViewImage"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/personEntryViewImage" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/EntryViewList"
@@ -58,23 +56,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/defaultimage" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="159dp"
-        android:layout_height="54dp"
-        android:text="Edit Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="227dp" />
-
     <ImageView
         android:id="@+id/morepersonactions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.305"
+        app:layout_constraintStart_toEndOf="@+id/personEntryViewImage"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_more_vert_24"
-        tools:layout_editor_absoluteX="361dp" />
+        app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
