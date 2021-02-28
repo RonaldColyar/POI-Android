@@ -11,6 +11,6 @@ class editPersonAttribute : AppCompatActivity() {
         val first  = intent.getStringExtra("first")
         val last =  intent.getStringExtra("last")
         val field = intent.getStringExtra("")
-        UpdateAttributeLabel.text = "${first} ${last}'s  New " + field+":"
+        UpdateAttributeLabel.text = "${first} ${last}'s  New " + field+ ":"
     }
 }

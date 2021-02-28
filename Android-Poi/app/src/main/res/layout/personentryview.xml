@@ -4,25 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/EntryView"
     android:layout_width="match_parent"
-    android:layout_height="670dp">
+    android:layout_height="700dp">
 
     <TextView
         android:id="@+id/EntryViewFirst"
         android:layout_width="137dp"
         android:layout_height="48dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginLeft="92dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginLeft="84dp"
         android:text="First"
         android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/EntryViewList"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/personEntryViewImage"
-        app:layout_constraintVertical_bias="0.296" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/EntryViewLast"
-        android:layout_width="141dp"
-        android:layout_height="57dp"
+        android:layout_width="139dp"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
@@ -30,17 +30,17 @@
         android:layout_marginRight="87dp"
         android:text="Last"
         android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/EntryViewList"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.372"
+        app:layout_constraintHorizontal_bias="0.307"
         app:layout_constraintStart_toEndOf="@+id/EntryViewFirst"
         app:layout_constraintTop_toBottomOf="@+id/personEntryViewImage"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/EntryViewList"
-        android:layout_width="413dp"
-        android:layout_height="425dp"
+        android:layout_width="411dp"
+        android:layout_height="419dp"
         android:background="#000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,28 +58,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/defaultimage" />
 
-    <ImageView
-        android:id="@+id/addentry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="185dp"
-        app:layout_constraintBottom_toTopOf="@+id/EntryViewList"
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="159dp"
+        android:layout_height="54dp"
+        android:text="Edit Name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/personEntryViewImage"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_baseline_add_24" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="227dp" />
 
     <ImageView
-        android:id="@+id/openpersondetails"
-        android:layout_width="43dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/personEntryViewImage"
-        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_visibility_24" />
+        app:srcCompat="@drawable/ic_baseline_more_vert_24"
+        tools:layout_editor_absoluteX="361dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
