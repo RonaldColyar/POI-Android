@@ -11,10 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".SensitiveDataConfirm"
-            android:theme="@style/Theme.AppCompat.Dialog.Alert"
+        <activity android:name=".editPersonAttribute"></activity>
+        <activity
+            android:name=".SensitiveDataConfirm"
             android:label="Delete Information!!"
-            ></activity>
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
         <activity android:name=".new_person_form" />
         <activity android:name=".mainhub" />
         <activity android:name=".MainActivity">

@@ -105,6 +105,7 @@ class mainhub : AppCompatActivity() {
         }
     }
 
+
     private  fun check_for_person_modification(requestCode: Int , data: Intent?){
         if (requestCode == 4039 && data != null){
             val values = ContentValues().apply {
