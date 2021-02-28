@@ -10,7 +10,7 @@ class editPersonAttribute : AppCompatActivity() {
         setContentView(R.layout.activity_edit_person_attribute)
         val first  = intent.getStringExtra("first")
         val last =  intent.getStringExtra("last")
-        val field = intent.getStringExtra("")
+        val field = intent.getStringExtra("field")
         UpdateAttributeLabel.text = "${first} ${last}'s  New " + field+ ":"
     }
 }

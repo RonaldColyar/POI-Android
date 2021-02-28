@@ -19,10 +19,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.R
-import kotlinx.android.synthetic.main.personsview.view.*
+import com.example.myapplication.*
 import com.example.myapplication.EntryAdapter
-import com.example.myapplication.SensitiveDataConfirm
+import kotlinx.android.synthetic.main.personsview.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -146,15 +145,37 @@ class MainAdapter(
         }
         dialog.show()
     }
-    private fun set_person_view_click_events( add_entry:ImageView ,details:ImageView,
-                                              position: Int,parent:Dialog){
-        add_entry.setOnClickListener {
-            show_entry_creation_view(position ,parent)
+    private  fun show_actions_popup(view:View , parent: Dialog,position: Int){
+        val popup = PopupMenu(context , view)
+        popup.inflate(R.menu.dropdown)
+        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+            if (it.itemId == R.id.AddEntryOfPerson){
+                show_entry_creation_view(position,parent)
+            }
+            else if (it.itemId == R.id.ViewDetailsOfPerson){
+                show_detailed_person_view(position)
+            }
+            true
+        })
+        popup.show()
+    }
 
+    private fun set_person_view_click_events( more_actions:ImageView,
+                                              position: Int,parent:Dialog){
+        more_actions.setOnClickListener {
+            show_actions_popup(more_actions,parent,position)
         }
-        details.setOnClickListener {
-            show_detailed_person_view(position)
-        }
+
+    }
+    private fun display_edit_person_activty(first:String , last:String,field:String){
+        val action = Intent(context , editPersonAttribute::class.java)
+        //adding data for label modification
+        action.putExtra("first" , first)
+        action.putExtra("last" , last)
+        action.putExtra("field" , field )
+        val tempActivity = context as Activity
+        tempActivity.startActivityForResult(action,4039)
+
     }
     private fun configured_dialog(id:Int):Dialog{
         val dialog  = Dialog(context)
@@ -179,10 +200,9 @@ class MainAdapter(
         val last = dialog.findViewById(R.id.EntryViewLast) as TextView
         val list = dialog.findViewById(R.id.EntryViewList) as RecyclerView
         val image = dialog.findViewById(R.id.personEntryViewImage) as ImageView
-        val add_entry = dialog.findViewById(R.id.addentry) as ImageView
-        val open_detail_view = dialog.findViewById(R.id.openpersondetails) as ImageView
+        val more_actions = dialog.findViewById(R.id.morepersonactions) as ImageView
         //update labels/images to match the person data
-        set_person_view_click_events(add_entry,open_detail_view,position,dialog)
+        set_person_view_click_events(more_actions,position,dialog)
         update_photo(image , Uri.parse(persons[position].image_path))
         configure_layout_and_show(first,last,list,position,dialog)
     }
