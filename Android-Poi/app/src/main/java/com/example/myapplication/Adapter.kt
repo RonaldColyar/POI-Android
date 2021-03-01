@@ -40,13 +40,17 @@ class DateManager{
     }
 
 }
-class MainAdapter(
-                    var persons : MutableList<Person>,
-                    val context:Context,
-                    val databaseFunctionality: DatabaseFunctionality,
-                    var count :Int) : RecyclerView.Adapter<ViewHolder>() {
 
-    private fun update_photo(Profileimage:ImageView , data:Uri){
+
+class GenericFunctionality(val context: Context){
+    open fun configured_dialog(id:Int):Dialog{
+        val dialog  = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(true)
+        dialog.setContentView(id)
+        return dialog
+    }
+    open fun update_photo(Profileimage:ImageView , data:Uri){
         try {
             //gather file resource data
             val bitmapforphoto = MediaStore.Images.Media.getBitmap(context.contentResolver, data)
@@ -59,16 +63,8 @@ class MainAdapter(
 
         }
     }
-
-    open fun remove_person(id:String){
-        //remove every person that matched the id
-        for (person in persons){
-            if (person.id == id ){
-                persons.remove(person)
-                count -=1
-            }
-        }
-    }
+}
+class PersonHandler(val context: Context , val adapter: MainAdapter){
 
     private fun configure_entry_divider(viewer: RecyclerView){
         var decorator = DividerItemDecoration(context,LinearLayoutManager.VERTICAL)
@@ -76,18 +72,49 @@ class MainAdapter(
         viewer.addItemDecoration(decorator)
     }
     private fun configure_layout_and_show(
-                first:TextView, last:TextView, viewer:RecyclerView,
-                position: Int, dialog: Dialog ){
-        first.text = persons[position].first
-        last.text = persons[position].last
-         //gather person(s) entry data and pass to list(viewer)
-        val cursor :Cursor = databaseFunctionality.gather_person_entries(persons[position].id!!)
-        val entries : MutableList<Entry> = databaseFunctionality.formatt_entries(cursor)
+        first:TextView, last:TextView, viewer:RecyclerView,
+        position: Int, dialog: Dialog ){
+        first.text = adapter.persons[position].first
+        last.text = adapter.persons[position].last
+        //gather person(s) entry data and pass to list(viewer)
+        val cursor :Cursor = adapter.databaseFunctionality.gather_person_entries(adapter.persons[position].id!!)
+        val entries : MutableList<Entry> = adapter.databaseFunctionality.formatt_entries(cursor)
         viewer.layoutManager = LinearLayoutManager(context)
         viewer.adapter = EntryAdapter(entries,context)
         configure_entry_divider(viewer)
         dialog.show()
     }
+
+    open fun show_person_view(position: Int){
+        val dialog = adapter.generic_functionality.configured_dialog(R.layout.personentryview)
+        val first  = dialog.findViewById(R.id.EntryViewFirst) as TextView
+        val last = dialog.findViewById(R.id.EntryViewLast) as TextView
+        val list = dialog.findViewById(R.id.EntryViewList) as RecyclerView
+        val image = dialog.findViewById(R.id.personEntryViewImage) as ImageView
+        val more_actions = dialog.findViewById(R.id.morepersonactions) as ImageView
+        //update labels/images to match the person data
+        set_person_view_click_events(more_actions,position,dialog)
+        adapter.generic_functionality.update_photo(image , Uri.parse(adapter.persons[position].image_path))
+        configure_layout_and_show(first,last,list,position,dialog)
+    }
+    private fun set_person_view_click_events( more_actions:ImageView, position: Int,parent:Dialog){
+        more_actions.setOnClickListener {
+            show_actions_popup(more_actions,parent,position)
+        }
+
+    }
+    private  fun show_actions_popup(view:View , parent: Dialog,position: Int){
+        val popup = PopupMenu(context , view)
+        popup.inflate(R.menu.more_person_options)
+        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+            adapter.person_entry_view_more_router.item_click_routing(it,position,parent)
+            true
+        })
+        popup.show()
+    }
+
+}
+class EntryHandler(val context: Context , val adapter: MainAdapter){
     private fun level_input_check(level:String) :Boolean{
         var status :Boolean = false
         if (level == "1"){
@@ -104,7 +131,7 @@ class MainAdapter(
     private fun configured_values(label:EditText, level:EditText,
                                   description:EditText, position: Int):ContentValues{
         val values :ContentValues = ContentValues().apply{
-            this.put("id" ,persons[position].id)
+            this.put("id" ,adapter.persons[position].id)
             this.put("label" , label.text.toString())
             this.put("data" , description.text.toString())
             this.put("level" , level.text.toString())
@@ -123,15 +150,15 @@ class MainAdapter(
         }
         else{
             //save data and close layout
-            databaseFunctionality.save_new_data( configured_values(label,level,description,position),"entries2")
+            adapter.databaseFunctionality.save_new_data( configured_values(label,level,description,position),"entries2")
             Toast.makeText(context, "Success!" , Toast.LENGTH_LONG).show()
             parent.hide()
             child.hide()
         }
     }
 
-    private fun show_entry_creation_view(position: Int,parent: Dialog){
-        val dialog :Dialog = configured_dialog(R.layout.activity_new_entry_form)
+    open fun show_entry_creation_view(position: Int,parent: Dialog){
+        val dialog :Dialog = adapter.generic_functionality.configured_dialog(R.layout.activity_new_entry_form)
         val create_button : Button = dialog.findViewById(R.id.CreateEntryButton) as Button
         create_button.setOnClickListener {
             //gather user input elements to store data
@@ -143,91 +170,94 @@ class MainAdapter(
         dialog.show()
     }
 
-    private  fun edit_attribute_routing(it:MenuItem , position: Int){
-        val first = persons[position].first
-        val last = persons[position].last
+}
+
+class PersonMoreRouter (val adapter:MainAdapter){
+
+    open fun edit_attribute_routing(it:MenuItem , position: Int){
         if(it.itemId == R.id.EditFirstOfPerson){
-            display_edit_person_activty(first,last, "first")
+            adapter.display_edit_person_activty(position,"first")
         }
         else if (it.itemId == R.id.EditLastOfPerson){
-            display_edit_person_activty(first,last,"last")
+            adapter.display_edit_person_activty(position,"last")
         }
         else if (it.itemId == R.id.EditHeightOfPerson ){
-            display_edit_person_activty(first,last,"height")
+            adapter.display_edit_person_activty(position,"height")
         }
         else if (it.itemId == R.id.EditLocationOfPerson){
-            display_edit_person_activty(first,last,"location")
+            adapter.display_edit_person_activty(position,"location")
         }
         else{
-            display_edit_person_activty(first,last,"race")
+            adapter.display_edit_person_activty(position,"race")
         }
     }
-    private  fun item_click_routing(it: MenuItem,position: Int,parent: Dialog){
+    open  fun item_click_routing(it: MenuItem,position: Int,parent: Dialog){
         if (it.itemId == R.id.AddEntryOfPerson){
-            show_entry_creation_view(position,parent)
+            adapter.entry_handler.show_entry_creation_view(position,parent)
         }
         else if (it.itemId == R.id.ViewDetailsOfPerson){
-            show_detailed_person_view(position)
+            adapter.show_detailed_person_view(position)
         }
         else {
             edit_attribute_routing(it,position)
         }
     }
-    private  fun show_actions_popup(view:View , parent: Dialog,position: Int){
-        val popup = PopupMenu(context , view)
-        popup.inflate(R.menu.more_person_options)
-        popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
-            item_click_routing(it,position,parent)
-            true
-        })
-        popup.show()
-    }
+}
+class MainAdapter(
+                    var persons : MutableList<Person>,
+                    val context:Context,
+                    val databaseFunctionality: DatabaseFunctionality,
+                    var count :Int) : RecyclerView.Adapter<ViewHolder>() {
+    val entry_handler = EntryHandler(context,this)
+    val person_entry_view_more_router = PersonMoreRouter(this)
+    val generic_functionality = GenericFunctionality(context)
+    val person_handler = PersonHandler(context,this)
 
-    private fun set_person_view_click_events( more_actions:ImageView, position: Int,parent:Dialog){
-        more_actions.setOnClickListener {
-            show_actions_popup(more_actions,parent,position)
+
+
+    open fun remove_person(id:String){
+        //remove every person that matched the id
+        for (person in persons){
+            if (person.id == id ){
+                persons.remove(person)
+                count -=1
+                return
+            }
         }
-
     }
-    private fun display_edit_person_activty(first:String? , last:String?,field:String){
+
+
+
+
+
+    open fun display_edit_person_activty(position: Int,field:String){
+        val first :String? = persons[position].first
+        val last :String? = persons[position].last
+        val id :String? = persons[position].id
         val action = Intent(context , editPersonAttribute::class.java)
         //adding data for label modification
         action.putExtra("first" , first)
         action.putExtra("last" , last)
         action.putExtra("field" , field )
+        action.putExtra("id" ,id )
         val tempActivity = context as Activity
         tempActivity.startActivityForResult(action,4039)
 
     }
-    private fun configured_dialog(id:Int):Dialog{
-        val dialog  = Dialog(context)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(true)
-        dialog.setContentView(id)
-        return dialog
-    }
-    private fun show_detailed_person_view (position: Int ){
-        val dialog = configured_dialog(R.layout.person_detail_view)
+
+    open fun show_detailed_person_view (position: Int ){
+        val dialog = generic_functionality.configured_dialog(R.layout.person_detail_view)
         val location = dialog.findViewById(R.id.personDetailsLocation) as TextView
         val race = dialog.findViewById(R.id.personDetailsRace) as TextView
         val height = dialog.findViewById(R.id.personDetailsHeight) as TextView
+        val image = dialog.findViewById(R.id.detailedPersonImage) as ImageView
+        generic_functionality.update_photo(image, Uri.parse(persons[position].image_path))
         location.text = persons[position].location
         race.text = persons[position].race
         height.text = persons[position].height
         dialog.show()
     }
-    private fun show_person_view(position: Int){
-        val dialog = configured_dialog(R.layout.personentryview)
-        val first  = dialog.findViewById(R.id.EntryViewFirst) as TextView
-        val last = dialog.findViewById(R.id.EntryViewLast) as TextView
-        val list = dialog.findViewById(R.id.EntryViewList) as RecyclerView
-        val image = dialog.findViewById(R.id.personEntryViewImage) as ImageView
-        val more_actions = dialog.findViewById(R.id.morepersonactions) as ImageView
-        //update labels/images to match the person data
-        set_person_view_click_events(more_actions,position,dialog)
-        update_photo(image , Uri.parse(persons[position].image_path))
-        configure_layout_and_show(first,last,list,position,dialog)
-    }
+
     private fun set_click_events(position: Int, holder: ViewHolder){
         holder.itemView.deletePerson.setOnClickListener {
             val temp = context as Activity
@@ -237,7 +267,7 @@ class MainAdapter(
             temp.startActivityForResult(action,3008)
         }
         holder.itemView.PersonsImage.setOnClickListener {
-            show_person_view(position)
+            person_handler.show_person_view(position)
 
         }
     }
@@ -246,7 +276,7 @@ class MainAdapter(
         holder.itemView.firstLabel.text = persons[position].first
         holder.itemView.lastLabel.text = persons[position].last
         if (persons[position].image_path != "null"){
-            update_photo(holder.itemView.PersonsImage, Uri.parse(persons[position].image_path))
+            generic_functionality.update_photo(holder.itemView.PersonsImage, Uri.parse(persons[position].image_path))
         }
         set_click_events(position,holder)
     }

@@ -8,32 +8,28 @@
 
     <TextView
         android:id="@+id/EntryViewFirst"
-        android:layout_width="137dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginLeft="68dp"
+        android:layout_width="174dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
         android:text="First"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/EntryViewList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/personEntryViewImage"
-        app:layout_constraintVertical_bias="0.079" />
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/personEntryViewImage"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/personEntryViewImage"
+        app:layout_constraintTop_toBottomOf="@+id/personEntryViewImage" />
 
     <TextView
         android:id="@+id/EntryViewLast"
-        android:layout_width="139dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="87dp"
-        android:layout_marginRight="87dp"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
         android:text="Last"
-        android:textSize="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/EntryViewList"
+        app:layout_constraintEnd_toEndOf="@+id/EntryViewFirst"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/EntryViewFirst"
-        app:layout_constraintTop_toBottomOf="@+id/personEntryViewImage" />
+        app:layout_constraintStart_toStartOf="@+id/EntryViewFirst"
+        app:layout_constraintTop_toBottomOf="@+id/EntryViewFirst"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/EntryViewList"

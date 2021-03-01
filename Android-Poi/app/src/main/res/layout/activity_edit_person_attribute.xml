@@ -7,11 +7,11 @@
     tools:context=".editPersonAttribute">
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="116dp"
-        android:layout_height="61dp"
+        android:id="@+id/SubmitUpdate"
+        android:layout_width="127dp"
+        android:layout_height="62dp"
         android:layout_marginBottom="76dp"
-        android:text="Button"
+        android:text="Update!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -19,21 +19,21 @@
 
     <EditText
         android:id="@+id/newAttributeInput"
-        android:layout_width="211dp"
-        android:layout_height="50dp"
+        android:layout_width="271dp"
+        android:layout_height="70dp"
         android:layout_marginBottom="36dp"
         android:background="#555"
         android:ems="10"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
         android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/SubmitUpdate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/UpdateAttributeLabel"
-        android:layout_width="302dp"
+        android:layout_width="343dp"
         android:layout_height="43dp"
 
         android:layout_marginTop="48dp"
@@ -41,8 +41,8 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/newAttributeInput"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.764"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.279" />
+        app:layout_constraintVertical_bias="0.718" />
 </androidx.constraintlayout.widget.ConstraintLayout>
