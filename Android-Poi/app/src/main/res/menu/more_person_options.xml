@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/ViewDetailsOfPerson"
+        android:title="View Details"
+        />
+    <item
+        android:id="@+id/AddEntryOfPerson"
+        android:title="Add Entry" />
+    <item
+        android:id="@+id/EditFirstOfPerson"
+        android:title="Edit First Name"
+        />
+    <item
+        android:id="@+id/EditLastOfPerson"
+        android:title="Edit Last Name"
+        />
+    <item
+        android:id="@+id/EditLocationOfPerson"
+        android:title="Edit Location"
+        />
+    <item
+        android:id="@+id/EditRaceOfPerson"
+        android:title="Edit Race"
+        />
+    <item
+        android:id="@+id/EditHeightOfPerson"
+        android:title="Edit Height"
+        />
+
+
+</menu>
